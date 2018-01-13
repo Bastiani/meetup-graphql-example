@@ -1,0 +1,33 @@
+# Mutation interface for our blog
+type Mutation {
+  createPost(
+    # Title of the post
+    title: String
+
+    # Content of the post
+    content: String
+  ): Post
+  deletePost(id: ID!): String
+}
+
+# Post type definition
+type Post {
+  # ID of the post
+  id: ID!
+
+  # Title of the post
+  title: String
+
+  # Content of the post
+  content: String
+}
+
+# Query interface for our blog
+type Query {
+  # Query to get a single post
+  post(id: ID!): Post
+
+  # Query to get all posts
+  posts: [Post]
+}
+
