@@ -1,7 +1,9 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList, GraphQLString } from 'graphql';
 
 import Post from './Post';
 import PostModel from '../model/Post';
+import CommentType from './Comment';
+import CommentModel from '../model/Comment';
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -15,13 +17,23 @@ const Query = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: (_, args) => PostModel.findOne({ _id: args.id }),
+      resolve: (_, { id }) => PostModel.findOne({ _id: id }),
     },
     posts: {
       type: new GraphQLList(Post),
       description: 'Query to get all posts',
       args: {},
       resolve: () => PostModel.find(),
+    },
+    comments: {
+      type: new GraphQLList(CommentType),
+      description: 'Query to get all comments for the post',
+      args: {
+        postId: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, { postId }) => CommentModel.find({ postId }),
     },
   },
 });

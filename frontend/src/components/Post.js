@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 
+import CreateComment from './CreateComment';
+
 const styles = {
   postWrapper: {
     display: 'flex',
@@ -9,6 +11,7 @@ const styles = {
     border: '1px solid #ccc',
     margin: 10,
     cursor: 'pointer',
+    height: '40px',
   },
   closeButton: {
     position: 'absolute',
@@ -30,21 +33,22 @@ class Post extends React.Component {
   }
   render() {
     return (
-      <div ref={this.props.inputRef}>
+      <div>
         {this.props.children}
         <div
           style={styles.postWrapper}
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         >
           <h3>{this.props.post.title}</h3>
-          <Modal isOpen={this.state.isOpen} ariaHideApp={false}>
-            <h3>{this.props.post.title}</h3>
-            <div>{this.props.post.content}</div>
-            <button onClick={() => this.setState({ isOpen: false })} style={styles.closeButton}>
-              X
-            </button>
-          </Modal>
         </div>
+        <Modal isOpen={this.state.isOpen} ariaHideApp={false}>
+          <h3>{this.props.post.title}</h3>
+          <div>{this.props.post.content}</div>
+          <CreateComment postId={this.props.post.id} />
+          <button onClick={() => this.setState({ isOpen: false })} style={styles.closeButton}>
+            X
+          </button>
+        </Modal>
       </div>
     );
   }

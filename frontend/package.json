@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rafacdb/bah": "^0.8.27",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-modal": "^3.1.10",
     "react-relay": "^1.4.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "relay-runtime": "^1.4.1"
+    "relay-runtime": "^1.4.1",
+    "styled-components": "^2.4.0"
   },
   "scripts": {
     "build": "node ./setup && react-scripts build",

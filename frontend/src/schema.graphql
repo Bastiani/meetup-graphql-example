@@ -1,3 +1,15 @@
+# Comment type definition
+type Comment {
+  # ID of the comment
+  id: ID!
+
+  # postId of the comment
+  postId: String
+
+  # Content of the comment
+  content: String
+}
+
 # Mutation interface for our blog
 type Mutation {
   createPost(
@@ -8,6 +20,13 @@ type Mutation {
     content: String
   ): Post
   deletePost(id: ID!): String
+  createComment(
+    # postId of the comment
+    postId: ID!
+
+    # Content of the comment
+    content: String
+  ): Comment
 }
 
 # Post type definition
@@ -20,6 +39,9 @@ type Post {
 
   # Content of the post
   content: String
+
+  # Comments of the post
+  comments: [Comment]
 }
 
 # Query interface for our blog
@@ -29,5 +51,8 @@ type Query {
 
   # Query to get all posts
   posts: [Post]
+
+  # Query to get all comments for the post
+  comments(postId: String): [Comment]
 }
 

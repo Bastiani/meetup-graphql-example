@@ -1,27 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from 'react-relay';
+import { Button } from '@rafacdb/bah';
 
-import PostInfo from './PostInfo';
+import PostList from './PostList';
 import environment from '../Environment';
 
 const styles = {
   listPageWrapper: { marginTop: 20, textAlign: 'center' },
-  postButtonWrapper: {
-    padding: 10,
-    background: 'white',
-    border: '2px solid indianred',
-    color: 'indianred',
-    borderRadius: 6,
-    marginTop: 10,
-    marginBottom: 10,
-  },
 };
 
-const ListPage = props => (
+const ListPage = () => (
   <div style={styles.listPageWrapper}>
-    <Link style={styles.postButtonWrapper} to="/create-post">
-      New Post
+    <Link to="/create-post">
+      <Button primary inline>
+        New Post
+      </Button>
     </Link>
     <div style={{ marginTop: 20 }}>
       <QueryRenderer
@@ -40,7 +34,7 @@ const ListPage = props => (
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return <PostInfo posts={props.posts} />;
+            return <PostList posts={props.posts} />;
           }
           return <div>Loading</div>;
         }}

@@ -1,31 +1,19 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Form, FormFields, Button, TextAreaStyled, Input } from '@rafacdb/bah';
 
 import CreatePostMutation from '../mutations/CreatePostMutation';
 import environment from '../Environment';
 
 const styles = {
-  createPostWrapper: { margin: 30, textAlign: 'center' },
+  createPostWrapper: { margin: 30 },
   titleWrapper: {
-    display: 'block',
-    width: '100%',
-    textAlign: 'center',
-    fontSize: '30px',
-    border: 'none',
-    outlineWidth: 0,
+    fontSize: '20px',
   },
   contentWrapper: {
     width: '100%',
-    height: '500px',
+    height: '300px',
     fontSize: '20px',
-    marginTop: '20px',
-  },
-  postButtonWrapper: {
-    padding: 10,
-    background: 'white',
-    border: '2px solid indianred',
-    color: 'indianred',
-    borderRadius: 6,
   },
 };
 
@@ -51,33 +39,41 @@ class CreatePost extends React.Component {
   render() {
     return (
       <div style={styles.createPostWrapper}>
-        <input
-          style={styles.titleWrapper}
-          value={this.state.title}
-          placeholder="Title"
-          onChange={e =>
-            this.setState({
-              title: e.target.value,
-            })
-          }
-        />
-        <textarea
-          style={styles.contentWrapper}
-          value={this.state.content}
-          placeholder="Content"
-          onChange={e =>
-            this.setState({
-              content: e.target.value,
-            })
-          }
-        />
-
-        {this.state.title &&
-          this.state.content && (
-            <button style={styles.postButtonWrapper} onClick={() => this.handlePost()}>
-              Post
-            </button>
-          )}
+        <Form>
+          <FormFields>
+            <Input
+              style={styles.titleWrapper}
+              value={this.state.title}
+              placeholder="Title"
+              onChange={e =>
+                this.setState({
+                  title: e.target.value,
+                })
+              }
+            />
+            <TextAreaStyled>
+              <textarea
+                style={styles.contentWrapper}
+                value={this.state.content}
+                placeholder="Content"
+                onChange={(e) => {
+                  this.setState({
+                    content: e.target.value,
+                  });
+                }}
+              />
+            </TextAreaStyled>
+            <Button info inline onClick={() => this.props.history.push('/')}>
+              Voltar
+            </Button>
+            {this.state.title &&
+              this.state.content && (
+                <Button success inline onClick={this.handlePost}>
+                  Post
+                </Button>
+              )}
+          </FormFields>
+        </Form>
       </div>
     );
   }
