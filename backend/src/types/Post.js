@@ -1,4 +1,11 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLID,
+  GraphQLList,
+  GraphQLBoolean,
+} from 'graphql';
 
 import CommentType from './Comment';
 import CommentModel from '../model/Comment';
@@ -15,7 +22,12 @@ const Post = new GraphQLObjectType({
     title: {
       type: GraphQLString,
       description: 'Title of the post',
-      resolve: post => post.title,
+      args: {
+        upperCase: {
+          type: GraphQLBoolean,
+        },
+      },
+      resolve: (post, { upperCase }) => (upperCase ? post.title.toUpperCase() : post.title),
     },
     content: {
       type: GraphQLString,
